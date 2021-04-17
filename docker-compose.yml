@@ -1,0 +1,68 @@
+version: "3.7"
+
+services:
+  db:
+    image: postgres:12.1
+    environment:
+      POSTGRES_USER: walrus
+      POSTGRES_PASSWORD: walrus
+    ports:
+      - '5432:5432'
+    volumes:
+      - walrus-db:/var/lib/postgresql/data
+
+  redis:
+    image: redis:5.0.7
+    ports:
+      - '6379:6379'
+    volumes:
+      - walrus-redis:/var/lib/redis/data
+
+  walrus:
+    stdin_open: true
+    tty: true
+    build:
+      context: .
+      args:
+        USER_ID: "${USER_ID:-1000}"
+        GROUP_ID: "${GROUP_ID:-1000}"
+    links:
+      - db
+      - redis
+    ports:
+      - '8010:8010'
+    env_file:
+      - .env
+    volumes:
+      - ./:/opt/app
+      - ./:/opt/app/vendor/bundle
+
+  sidekiq:
+    stdin_open: true
+    tty: true
+    build:
+      context: .
+      args:
+        USER_ID: "${USER_ID:-1000}"
+        GROUP_ID: "${GROUP_ID:-1000}"
+    command: bundle exec sidekiq
+    links:
+      - db
+      - redis
+    env_file:
+      - .env
+
+  nginx:
+    stdin_open: true
+    tty: true
+    build:
+      context: .
+      dockerfile: ./Dockerfile.nginx
+    links:
+      - walrus
+    ports:
+      - '8020:8020'
+
+volumes:
+  walrus-db:
+  walrus-redis:
