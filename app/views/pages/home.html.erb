@@ -1,2 +1,2 @@
-<h1><%= I18n.t("pages.home.title") %></h1>
-<h1>Counter: <%= @counter %></h1>
+<h1><%= I18n.t("pages.home.titles") %></h1>
+<h1><%= I18n.t("pages.home.counter") %>: <%= I18n.t("number.currency.format.unit") %> <%= (@counter * 100).truncate(3) %></h1>

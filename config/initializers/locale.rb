@@ -1,5 +1,5 @@
 # Where the I18n library should search for translation files
-I18n.load_path += Dir[Rails.root.join("lib", "locales", "*.{rb,yml}")]
+I18n.load_path += Dir[Rails.root.join('lib', 'locales', '**', '*.{rb,yml}')]
 
 # Permitted locales available for the application
 I18n.available_locales = [:"en-US", :"pt-BR"]
