@@ -1,13 +1,13 @@
 require 'test_helper'
 
-class Mutations::CreateUserTest < ActiveSupport::TestCase
+class Mutations::CreateAccountTest < ActiveSupport::TestCase
   def perform(args = {})
-    Mutations::CreateUser.new(object: nil, field: nil, context: {}).resolve(args)
+    Mutations::CreateAccount.new(object: nil, field: nil, context: {}).resolve(args)
   end
 
   test 'create new user' do
     user = perform(
-      name: 'Test User',
+      name: 'Test Account',
       auth_provider: {
         credentials: {
           email: 'email@example.com',
@@ -17,7 +17,7 @@ class Mutations::CreateUserTest < ActiveSupport::TestCase
     )
 
     assert user.persisted?
-    assert_equal user.name, 'Test User'
+    assert_equal user.name, 'Test Account'
     assert_equal user.email, 'email@example.com'
   end
 end

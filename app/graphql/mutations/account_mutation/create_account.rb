@@ -1,7 +1,7 @@
 module Mutations
   module AccountMutation
-    class CreateUser < Mutations::BaseMutation
-      type Types::UserType
+    class CreateAccount < Mutations::BaseMutation
+      type Types::AccountType
 
       # often we will need input types for specific mutation
       # in those cases we can define those input types in the mutation class itself
@@ -12,12 +12,8 @@ module Mutations
       argument :name, String, required: true
       argument :auth_provider, AuthProviderSignupData, required: false
 
-      def resolve(name: nil, auth_provider: nil)
-        Services::AccountService::CreateUserService.new.perform(
-          name: name,
-          email: auth_provider&.[](:credentials)&.[](:email),
-          password: auth_provider&.[](:credentials)&.[](:password)
-        )
+      def resolve(**service_args)
+        Services::AccountService::CreateAccountService.new.perform(service_args)
       end
     end
   end

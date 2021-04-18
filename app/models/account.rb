@@ -1,4 +1,4 @@
-class User < ApplicationRecord
+class Account < ApplicationRecord
   has_secure_password
 
   acts_as_paranoid

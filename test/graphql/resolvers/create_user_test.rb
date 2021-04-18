@@ -1,13 +1,13 @@
 require 'test_helper'
 
-class Resolvers::CreateUserTest < ActiveSupport::TestCase
+class Resolvers::CreateAccountTest < ActiveSupport::TestCase
   def perform(args = {})
-    Resolvers::CreateUser.new.call(nil, args, nil)
+    Resolvers::CreateAccount.new.call(nil, args, nil)
   end
 
   test 'creating new user' do
     user = perform(
-      name: 'Test User',
+      name: 'Test Account',
       authProvider: {
         email: {
           email: 'email@example.com',
@@ -17,7 +17,7 @@ class Resolvers::CreateUserTest < ActiveSupport::TestCase
     )
 
     assert user.persisted?
-    assert_equal user.name, 'Test User'
+    assert_equal user.name, 'Test Account'
     assert_equal user.email, 'email@example.com'
   end
 end

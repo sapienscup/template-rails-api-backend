@@ -13,6 +13,6 @@ class AuthToken
 
     return nil if result[:error]
 
-    User.find_by(id: result[:ok][:user_id])
+    Account.find_by(id: result[:ok][:user_id])
   end
 end
