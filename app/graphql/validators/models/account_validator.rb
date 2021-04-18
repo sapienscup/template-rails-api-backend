@@ -2,9 +2,9 @@ module Validators
   module Models
     class AccountValidator
       def self.validates(variables_param)
-        raise GraphQL::ExecutionError, "Unexpected parameter: name" unless variables_param[:name].present?
-        raise GraphQL::ExecutionError, "Unexpected parameter: auth_provider.credentials.email" unless variables_param[:auth_provider]&.[](:credentials)&.[](:email).present?,
-        raise GraphQL::ExecutionError, "Unexpected parameter: auth_provider.credentials.password" unless variables_param[:auth_provider]&.[](:credentials)&.[](:password).present?
+        email = variables_param[:auth_provider]&.[](:credentials)&.[](:email)
+        existing_account = Account.find_by(email: email)
+        raise GraphQL::ExecutionError, I18n.t("account.errors.email.already_registred") unless existing_account.blank?
       end
     end
   end
