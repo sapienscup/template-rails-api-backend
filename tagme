@@ -1,0 +1,83 @@
+#!/bin/bash
+
+# See this document https://semver.org/lang/pt-BR/
+
+# Fetch all tags
+git checkout master --quiet && git fetch --tags --quiet
+
+# Get last tag
+LAST_TAG=`git describe --abbrev=0 --tags`;
+
+# Show last version in the terminal
+
+# Split tag version by point
+# This is a string separated by spaces
+SPLITTED_NUMBERS=(${LAST_TAG//./ })
+
+# Get each part of the split array
+MAJOR_NUMBER="${SPLITTED_NUMBERS[0]}"
+MINOR_NUMBER="${SPLITTED_NUMBERS[1]}"
+PATCH_NUMBER="${SPLITTED_NUMBERS[2]}"
+
+# Show which version we are at
+echo "Backend is currently at: v$MAJOR_NUMBER.$MINOR_NUMBER.$PATCH_NUMBER"
+
+# Switch case to select the case of the tagging option
+case $1 in
+# ./tagme epic
+# ./tagme milestone
+# ./tagme major
+# ./tagme M
+"epic" | "milestone" | "major" | "M")
+  ((MAJOR_NUMBER+=1))
+  MINOR_NUMBER=0
+  PATCH_NUMBER=0
+  echo "Major Version Added"
+  ;;
+# ./tagme feature
+# ./tagme story
+# ./tagme minor
+# ./tagme m
+"feature" | "story" | "minor" | "m")
+  ((MINOR_NUMBER+=1))
+  PATCH_NUMBER=0
+  echo "Minor Version Added"
+  ;;
+# ./tagme patch
+# ./tagme bugfix
+# ./tagme bug
+# ./tagme hotfix
+# ./tagme fix
+# ./tagme b
+*)
+  ((PATCH_NUMBER+=1))
+  echo "Patch Version Added"
+  ;;
+esac
+
+# Build the new next tag
+NEW_TAG="$MAJOR_NUMBER.$MINOR_NUMBER.$PATCH_NUMBER"
+
+# Show in the terminal the bumping
+
+# Execute the git tagging
+if [ -z $2 ]
+then
+  # ./tagme patch
+  # ./tagme minor
+  # ./tagme major
+  echo "Bump to version $NEW_TAG";
+  git tag -a $NEW_TAG -m "Bump to version $NEW_TAG";
+else
+  # ./tagme patch -p
+  # ./tagme minor -p
+  # ./tagme major -p
+  echo "[Preview] Bump to version $NEW_TAG";
+fi
+
+# Push the tags to the remote server
+
+# Bitbucket server could push the tags it self
+
+# git remote -v
+# git push $GIT_HUB_REMOTE_SOURCE --tags
