@@ -57,5 +57,9 @@ module Walrus
     config.api_only = true
 
     # config.debug_exception_response_format = :api
+
+    config.after_initialize do |app|
+      app.routes.append{ match '*a', :to => 'application#not_found' } unless config.consider_all_requests_local
+    end
   end
 end

@@ -10,10 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_18_005032) do
+ActiveRecord::Schema.define(version: 2021_05_02_015510) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "account_profiles", force: :cascade do |t|
+    t.bigint "account_id"
+    t.bigint "profile_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["account_id"], name: "index_account_profiles_on_account_id"
+    t.index ["profile_id"], name: "index_account_profiles_on_profile_id"
+  end
 
   create_table "accounts", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
@@ -29,6 +38,13 @@ ActiveRecord::Schema.define(version: 2021_04_18_005032) do
     t.index ["email"], name: "index_accounts_on_email", unique: true
   end
 
+  create_table "groups", force: :cascade do |t|
+    t.string "code"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["code"], name: "index_groups_on_code", unique: true
+  end
+
   create_table "links", force: :cascade do |t|
     t.string "url"
     t.string "description"
@@ -38,6 +54,16 @@ ActiveRecord::Schema.define(version: 2021_04_18_005032) do
     t.bigint "user_id"
     t.index ["deleted_at"], name: "index_links_on_deleted_at"
     t.index ["user_id"], name: "index_links_on_user_id"
+  end
+
+  create_table "profiles", force: :cascade do |t|
+    t.bigint "group_id"
+    t.bigint "account_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "deleted_at"
+    t.index ["account_id"], name: "index_profiles_on_account_id"
+    t.index ["group_id"], name: "index_profiles_on_group_id"
   end
 
   add_foreign_key "links", "accounts", column: "user_id"
