@@ -5,8 +5,8 @@ class Resolvers::CreateAccountTest < ActiveSupport::TestCase
     Resolvers::CreateAccount.new.call(nil, args, nil)
   end
 
-  test 'creating new user' do
-    user = perform(
+  test 'creating new account' do
+    account = perform(
       name: 'Test Account',
       authProvider: {
         email: {
@@ -16,8 +16,8 @@ class Resolvers::CreateAccountTest < ActiveSupport::TestCase
       }
     )
 
-    assert user.persisted?
-    assert_equal user.name, 'Test Account'
-    assert_equal user.email, 'email@example.com'
+    assert account.persisted?
+    assert_equal account.name, 'Test Account'
+    assert_equal account.email, 'email@example.com'
   end
 end
