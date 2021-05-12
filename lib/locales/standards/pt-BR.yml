@@ -1,0 +1,5 @@
+---
+pt-BR:
+  standards:
+    errors:
+      not_found: "Nada foi encontrado"

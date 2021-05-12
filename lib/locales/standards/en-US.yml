@@ -1,0 +1,5 @@
+---
+en-US:
+  standards:
+    errors:
+      not_found: "Not found"

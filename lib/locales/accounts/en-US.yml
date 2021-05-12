@@ -1,0 +1,6 @@
+---
+en-US:
+  account:
+    errors:
+      email:
+        already_registred: "Already registred"

@@ -1,0 +1,7 @@
+---
+pt-BR:
+  account:
+    errors:
+      email:
+        already_registred: "Já registrado"
+
