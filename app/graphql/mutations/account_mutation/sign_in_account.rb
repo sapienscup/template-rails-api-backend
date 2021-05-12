@@ -9,19 +9,10 @@ module Mutations
       field :account, Types::AccountType, null: true
 
       def resolve(credentials: nil)
-        return unless credentials
+        account_with_token = Services::TokenServices::GenerateTokenService.new.perform(credentials: credentials.to_h)
+        set_token_in_context_session(account_with_token.token)
 
-        account = Account.find_by email: credentials[:email]
-
-        return unless account
-        return unless account.authenticate(credentials[:password])
-
-        crypt = ActiveSupport::MessageEncryptor.new(Rails.application.credentials.secret_key_base.byteslice(0..31))
-        token = crypt.encrypt_and_sign("account-id:#{ account.id }")
-
-        context[:session][:token] = token
-
-        { account: account, token: token }
+        account_with_token
       end
     end
   end
