@@ -13,8 +13,7 @@ module Services
         ::Account.create!(
           name: service_args[:name],
           email: service_args[:auth_provider][:credentials][:email],
-          password: service_args[:auth_provider][:credentials][:password],
-          api_token: "token-undefined"
+          password: service_args[:auth_provider][:credentials][:password]
         )
       end
     end

@@ -2,11 +2,15 @@ module GqlLibs
   module Service
     class CurrentUserBuilder
       def self.call(request, session)
-        return unless session[:token]
-        crypt = ActiveSupport::MessageEncryptor.new(Rails.application.credentials.secret_key_base.byteslice(0..31))
-        token = crypt.decrypt_and_verify(session[:token])
-        account_id = token.gsub('account-id:', '').to_i
-        Account.find(account_id)
+        authentication_token = request.headers["Authorization"]
+
+        return unless authentication_token
+
+        account_found = Account.find_by(authentication_token: authentication_token)
+
+        raise "account not found" unless account_found
+
+        account_found
       rescue ActiveSupport::MessageVerifier::InvalidSignature
         nil
       end

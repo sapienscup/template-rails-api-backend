@@ -8,7 +8,6 @@
 
 (1..10).to_a.each do |index|
   Account.create(
-    api_token: "token#{index}",
     email: "email#{index}@gmail.com.br",
     name: "name#{index}",
     password: "pass#{index}"

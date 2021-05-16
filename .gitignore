@@ -16,3 +16,4 @@
 /config/cable.yml
 /public
 /reports
+.byebug_history

@@ -20,7 +20,9 @@ gem "acts_as_paranoid", "~> 0.7.0"
 gem "hirb", "~> 0.7.3"
 gem "awesome_print", "~> 1.8.0"
 gem "rails-i18n", "~> 6.0.0"
-gem "jwt", "~> 2.2.3"
+
+gem "devise", "~> 4.8.0"
+gem "simple_token_authentication", "~> 1.0"
 
 group :development, :test do
   gem "byebug", "~> 11.1.3", platforms: %i[mri mingw x64_mingw]
@@ -42,8 +44,8 @@ group :test do
   gem "factory_bot_rails", "~> 6.1.0"
   gem "rspec", ">= 3.10.0"
   gem "rspec-rails", ">= 3.9.0"
-  gem 'simplecov', "~> 0.21.2"
-  gem 'simplecov-console', "~> 0.9.1"
+  gem "simplecov", "~> 0.21.2"
+  gem "simplecov-console", "~> 0.9.1"
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

@@ -64,10 +64,10 @@ module Walrus
       app.routes.append{ match '*a', :to => 'application#not_found' } unless config.consider_all_requests_local
     end
 
-    config.action_dispatch.signed_cookie_digest = "SHA256"
+    # config.action_dispatch.signed_cookie_digest = "SHA256"
 
-    config.action_dispatch.cookies_rotations.tap do |cookies|
-      cookies.rotate :signed, digest: "SHA1"
-    end
+    # config.action_dispatch.cookies_rotations.tap do |cookies|
+    #   cookies.rotate :signed, digest: "SHA1"
+    # end
   end
 end

@@ -1,6 +1,7 @@
 require "sidekiq/web"
 
 Rails.application.routes.draw do
+  devise_for :admins
   root "pages#home"
 
   post "/graphql", to: "graphql#execute"
