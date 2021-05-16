@@ -37,12 +37,10 @@ module GqlLibs
         }
       end
 
-      # Handle form data, JSON body, or a blank value
       def ensure_hash(variables_param)
         GqlLibs::Service::EnsureHash.call(variables_param)
       end
 
-      # gets current user from token stored in the session
       def current_user
         GqlLibs::Service::CurrentUserBuilder.call(request, session)
       end
@@ -51,7 +49,6 @@ module GqlLibs
         GqlLibs::Service::HandleError.call(e)
       end
 
-      # Handle variables in form data, JSON body, or a blank value
       def prepare_variables(variables_param)
         GqlLibs::Service::PrepareVariables.call(variables_param)
       end

@@ -12,7 +12,6 @@ module GqlLibs
         when Hash
           variables_param
         when ActionController::Parameters
-          # GraphQL-Ruby will validate name and type of incoming variables.
           variables_param.to_unsafe_hash
         when nil
           {}
