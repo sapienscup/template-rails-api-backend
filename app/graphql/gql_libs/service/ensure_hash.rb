@@ -1,16 +1,23 @@
 module GqlLibs
   module Service
     class EnsureHash
-      def self.call(ambiguous_param)
-        case ambiguous_param
+      def self.call(variables_param)
+        case variables_param
         when String
-          ambiguous_param.present? ? call(JSON.parse(ambiguous_param)) : {}
-        when Hash, ActionController::Parameters
-          ambiguous_param
+          if variables_param.present?
+            JSON.parse(variables_param) || {}
+          else
+            {}
+          end
+        when Hash
+          variables_param
+        when ActionController::Parameters
+          # GraphQL-Ruby will validate name and type of incoming variables.
+          variables_param.to_unsafe_hash
         when nil
           {}
         else
-          raise ArgumentError, "Unexpected parameter: #{ambiguous_param}"
+          raise ArgumentError, "Unexpected parameter: #{variables_param}"
         end
       end
     end
