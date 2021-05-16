@@ -37,12 +37,18 @@ module GqlLibs
         }
       end
 
+      def extract_end_point
+        one, two, three, end_point = query.match(/\)(\s||\d||\w)*\{(\n+)?(\s+)(\w+)\(/im).captures
+
+        end_point
+      end
+
       def ensure_hash(variables_param)
         GqlLibs::Service::EnsureHash.call(variables_param)
       end
 
       def current_user
-        GqlLibs::Service::CurrentUserBuilder.call(request, session)
+        GqlLibs::Service::CurrentUserBuilder.new(params, request, session, extract_end_point).perform
       end
 
       def handle_error_in_development(e)
