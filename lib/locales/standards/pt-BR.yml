@@ -3,3 +3,4 @@ pt-BR:
   standards:
     errors:
       not_found: "Nada foi encontrado"
+      authorization_header_not_found: "Header sem autorização (coloque Authorization no header, o valor é o seu token)"
