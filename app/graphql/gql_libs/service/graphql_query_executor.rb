@@ -54,10 +54,6 @@ module GqlLibs
       def handle_error_in_development(e)
         GqlLibs::Service::HandleError.call(e)
       end
-
-      def prepare_variables(variables_param)
-        GqlLibs::Service::PrepareVariables.call(variables_param)
-      end
     end
   end
 end
