@@ -10,10 +10,10 @@ class ApplicationController < ActionController::API
   def handle_exception(exception=nil)
     if exception
       logger = Logger.new(STDOUT)
-      logger.debug "Exception Message: #{exception.message} \n"
-      logger.debug "Exception Class: #{exception.class} \n"
-      logger.debug "Exception Backtrace: \n"
-      logger.debug exception.backtrace.join("\n")
+      logger.debug("Exception Message: #{exception.message} \n")
+      logger.debug("Exception Class: #{exception.class} \n")
+      logger.debug("Exception Backtrace: \n")
+      logger.debug(exception.backtrace.join("\n"))
       if [ActionController::RoutingError, ActionController::UnknownController, ActionController::UnknownAction].include?(exception.class)
         return render_404
       else
@@ -24,15 +24,15 @@ class ApplicationController < ActionController::API
 
   def render_404
     respond_to do |format|
-      format.html { render template: 'errors/not_found', layout: 'layouts/application', status: 404 }
-      format.all { render nothing: true, status: 404 }
+      format.html { render(template: 'errors/not_found', layout: 'layouts/application', status: 404) }
+      format.all { render(nothing: true, status: 404) }
     end
   end
 
   def render_500
     respond_to do |format|
-      format.html { render template: 'errors/internal_server_error', layout: 'layouts/application', status: 500 }
-      format.all { render nothing: true, status: 500}
+      format.html { render(template: 'errors/internal_server_error', layout: 'layouts/application', status: 500) }
+      format.all { render(nothing: true, status: 500) }
     end
   end
 end
