@@ -21,6 +21,7 @@ gem "hirb", "~> 0.7.3"
 gem "awesome_print", "~> 1.8.0"
 gem "rails-i18n", "~> 6.0.0"
 gem "pry", "~> 0.13.1"
+gem "rack-cors", "~> 1.1.1"
 
 gem "devise", "~> 4.8.0"
 gem "simple_token_authentication", "~> 1.0"
