@@ -1,0 +1,91 @@
+name: CI
+
+on: [pull_request]
+
+jobs:
+  rspec:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: jitterbit/get-changed-files@v1
+        id: files_pull_request
+        with:
+          format: space-delimited
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - id: vars
+        shell: bash
+        run: |
+          for added_modified_file in ${{ steps.files_pull_request.outputs.added_modified }}; do
+            if [[ $added_modified_file == *_spec.rb ]]; then
+              shiny_specs+=" $added_modified_file"
+            fi
+            if [[ $added_modified_file == *.rb ]]; then
+              shiny_rubies+=" $added_modified_file"
+            fi
+          done
+          echo "::set-output name=shiny_rubies::$(echo $shiny_rubies)"
+          echo "::set-output name=shiny_specs::$(echo $shiny_specs)"
+          echo "shiny_specs:${shiny_specs}"
+          echo "shiny_rubies:${shiny_rubies}"
+
+      - name: Extract pull request uniq number
+        shell: bash
+        run: |
+          pr_uniq_number=${{ github.ref }}
+          pr_uniq_number=${pr_uniq_number#refs/pull/}
+          pr_uniq_number=${pr_uniq_number%/merge}
+          echo "::set-output name=number::$(echo ${pr_uniq_number})"
+          echo ${pr_uniq_number}
+        id: pr_stats
+
+      - name: Build the stack
+        id: api_build
+        run: docker-compose build
+
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@master
+
+      - name: Cache Docker layers
+        uses: actions/cache@v2
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-single-buildx-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-single-buildx
+
+      - name: Prepare stuff
+        run: |
+          docker-compose run api rake db:create RAILS_ENV=test
+          docker-compose run api rake db:schema:load RAILS_ENV=test
+
+      - name: Rubocop Default
+        run: docker-compose run api rubocop --regenerate-todo --parallel ${{ steps.vars.outputs.shiny_rubies }}
+
+      - name: Rails Best Practices PR Rubies Only
+        run: docker-compose run api rails_best_practices --format html --only ${{ steps.vars.outputs.shiny_rubies }}
+
+      - name: Coverage PR Specs Only
+        run: docker-compose run -e COVERAGE=true api rspec ${{ steps.vars.outputs.shiny_specs }}
+
+      - name: RSpec PR Specs Only
+        run: docker-compose run api rspec ${{ steps.vars.outputs.shiny_specs }}
+
+      - name: Move reports to folder
+        run: |
+          mkdir -p reports
+          cp .rubocop_todo.yml reports
+          cp rails_best_practices_output.html reports
+          cp -r coverage reports
+          tar -czvf "reports-${{ steps.pr_stats.outputs.number }}-${{ github.actor }}-${{ github.run_number }}.tar.gz" reports
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: "reports-${{ steps.pr_stats.outputs.number }}-${{ github.actor }}-${{ github.run_number }}"
+          path: "reports-${{ steps.pr_stats.outputs.number }}-${{ github.actor }}-${{ github.run_number }}.tar.gz"
+          retention-days: 2
+
+      - name: RSpec All
+        run: docker-compose run api rspec
