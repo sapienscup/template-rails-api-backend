@@ -1,0 +1,53 @@
+inherit_from: default.yml
+
+Metrics/AbcSize:
+  Description: >-
+                 A calculated magnitude based on number of assignments,
+                 branches, and conditions.
+  Reference:
+    - http://c2.com/cgi/wiki?AbcMetric
+    - https://en.wikipedia.org/wiki/ABC_Software_Metric
+  Enabled: true
+  Max: 17
+
+Metrics/BlockLength:
+  Description: 'Avoid long blocks with many lines.'
+  Enabled: true
+  Max: 25
+
+Metrics/BlockNesting:
+  Description: 'Avoid excessive block nesting.'
+  StyleGuide: '#three-is-the-number-thou-shalt-count'
+  Enabled: true
+  CountBlocks: false
+  Max: 3
+
+Metrics/CyclomaticComplexity:
+  Description: >-
+                 A complexity metric that is strongly correlated to the number
+                 of test cases needed to validate a method.
+  Enabled: true
+  Max: 7
+
+Metrics/MethodLength:
+  Description: 'Avoid methods longer than 10 lines of code.'
+  StyleGuide: '#short-methods'
+  Enabled: true
+  VersionAdded: '0.25'
+  VersionChanged: '1.5'
+  Max: 10
+
+Metrics/ParameterLists:
+  Description: 'Avoid parameter lists longer than three or four parameters.'
+  StyleGuide: '#too-many-params'
+  Enabled: true
+  Max: 5
+  CountKeywordArgs: true
+  MaxOptionalParameters: 3
+
+Metrics/PerceivedComplexity:
+  Description: >-
+                 A complexity metric geared towards measuring complexity for a
+                 human reader.
+  Enabled: true
+  Max: 8

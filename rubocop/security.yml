@@ -1,0 +1,30 @@
+inherit_from: default.yml
+
+Security/Eval:
+  Description: 'The use of eval represents a serious security risk.'
+  Enabled: true
+
+Security/JSONLoad:
+  Description: >-
+                 Prefer usage of `JSON.parse` over `JSON.load` due to potential
+                 security issues. See reference for more information.
+  Reference: 'https://ruby-doc.org/stdlib-2.7.0/libdoc/json/rdoc/JSON.html#method-i-load'
+  Enabled: true
+
+Security/MarshalLoad:
+  Description: >-
+                 Avoid using of `Marshal.load` or `Marshal.restore` due to potential
+                 security issues. See reference for more information.
+  Reference: 'https://ruby-doc.org/core-2.7.0/Marshal.html#module-Marshal-label-Security+considerations'
+  Enabled: true
+
+Security/Open:
+  Description: 'The use of `Kernel#open` and `URI.open` represent a serious security risk.'
+  Enabled: true
+
+Security/YAMLLoad:
+  Description: >-
+                 Prefer usage of `YAML.safe_load` over `YAML.load` due to potential
+                 security issues. See reference for more information.
+  Reference: 'https://ruby-doc.org/stdlib-2.7.0/libdoc/yaml/rdoc/YAML.html#module-YAML-label-Security'
+  Enabled: true
