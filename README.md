@@ -28,4 +28,4 @@ docker run -it -v $PWD:/opt/app rails-toolbox rails new --api -T --skip-bundle .
 
 # Links
 
-- [Dockerizing rails app]([https://](https://semaphoreci.com/community/tutorials/dockerizing-a-ruby-on-rails-application))
+- [Dockerizing rails app](https://semaphoreci.com/community/tutorials/dockerizing-a-ruby-on-rails-application)
