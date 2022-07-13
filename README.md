@@ -16,15 +16,15 @@ docker run -it -v $PWD:/opt/app rails-toolbox rails new --api -T --skip-bundle .
 
 # Features
 
-[x] Graphql Error Handler
+- Graphql Error Handler
 
-[x] Feature List Order Checker
+- Feature List Order Checker
 
-[x] Graphql Capability of Doing Operations Directly in the Frontend
+- Graphql Capability of Doing Operations Directly in the Frontend
 
-[x] Trailblazer's philosophy
+- Trailblazer's philosophy
 
-[x] I18n Organized
+- I18n Organized
 
 # Links
 
