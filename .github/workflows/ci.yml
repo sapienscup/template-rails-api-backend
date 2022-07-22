@@ -24,8 +24,12 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Permissions
+        run: |
+          sudo mkdir -p /opt/app/tmp
+          sudo chmod -R 0755 /opt/app/tmp
+
       - name: Build the stack
-        id: api_build
         run: docker-compose build
 
       - name: Prepare stuff
