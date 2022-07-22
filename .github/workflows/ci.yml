@@ -57,20 +57,20 @@ jobs:
 
       - name: Prepare stuff
         run: |
-          docker-compose run api rake db:create RAILS_ENV=test
-          docker-compose run api rake db:schema:load RAILS_ENV=test
+          docker-compose run walrus rake db:create RAILS_ENV=test
+          docker-compose run walrus rake db:schema:load RAILS_ENV=test
 
       - name: Rubocop Default
-        run: docker-compose run api rubocop --regenerate-todo --parallel ${{ steps.vars.outputs.shiny_rubies }}
+        run: docker-compose run walrus rubocop --regenerate-todo --parallel ${{ steps.vars.outputs.shiny_rubies }}
 
       - name: Rails Best Practices PR Rubies Only
-        run: docker-compose run api rails_best_practices --format html --only ${{ steps.vars.outputs.shiny_rubies }}
+        run: docker-compose run walrus rails_best_practices --format html --only ${{ steps.vars.outputs.shiny_rubies }}
 
       - name: Coverage PR Specs Only
-        run: docker-compose run -e COVERAGE=true api rspec ${{ steps.vars.outputs.shiny_specs }}
+        run: docker-compose run -e COVERAGE=true walrus rspec ${{ steps.vars.outputs.shiny_specs }}
 
       - name: RSpec PR Specs Only
-        run: docker-compose run api rspec ${{ steps.vars.outputs.shiny_specs }}
+        run: docker-compose run walrus rspec ${{ steps.vars.outputs.shiny_specs }}
 
       - name: Move reports to folder
         run: |
@@ -88,4 +88,4 @@ jobs:
           retention-days: 2
 
       - name: RSpec All
-        run: docker-compose run api rspec
+        run: docker-compose run walrus rspec

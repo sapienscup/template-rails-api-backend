@@ -17,10 +17,10 @@ RSpec.describe "Mutations::AccountMutation::CreateAccounts", type: :request do
     {
       "name": "ab",
       "authProvider": {
-          "credentials": {
-              "email": "ab@c.d.f",
-              "password": "hui"
-          }
+        "credentials": {
+          "email": "a@b.c.d",
+          "password": "hui"
+        }
       }
     }
   }
@@ -28,9 +28,8 @@ RSpec.describe "Mutations::AccountMutation::CreateAccounts", type: :request do
   describe ".resolve" do
     context 'valid params' do
       it "should create an account" do
-        post '/graphql', params: { query: query, variables: variables }
-        json = JSON.parse(response.body)
-        data = json['data']['createAccount']
+        post "/graphql", params: { query: query, variables: JSON.dump(variables) }, headers: headers
+        @body = JSON.parse(response.body).with_indifferent_access
 
         expect(response).to have_http_status(200)
       end
