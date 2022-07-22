@@ -42,8 +42,5 @@ jobs:
       - name: Coverage PR Specs Only
         run: docker-compose run -e COVERAGE=true walrus rspec
 
-      - name: RSpec PR Specs Only
-        run: docker-compose run walrus rspec
-
       - name: RSpec All
         run: docker-compose run walrus rspec
