@@ -6,6 +6,14 @@ RUN mkdir -p $INSTALL_PATH
 
 ENV INSTALL_PATH /opt/app
 
+ENV DEBIAN_FRONTEND noninteractive
+
+RUN apt-get update ; \
+    apt-get install -yq --no-install-recommends gcc make libjemalloc2 ; \
+    rm -rf /var/lib/apt/lists/*
+
+ENV LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libjemalloc.so.2
+
 RUN mkdir -p $INSTALL_PATH
 
 WORKDIR $INSTALL_PATH

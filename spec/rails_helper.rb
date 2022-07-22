@@ -2,15 +2,24 @@
 
 require 'spec_helper'
 
-if ENV['RAILS_ENV'] == 'test'
-  require 'simplecov'
-  SimpleCov.start 'rails'
-  puts "required simplecov"
+if ENV.fetch("COVERAGE", false)
+  require "simplecov"
+  require "simplecov-rcov-text"
+  SimpleCov.formatter = SimpleCov::Formatter::RcovTextFormatter
+  SimpleCov.start do
+    add_filter(%r{^/test/})
+    add_filter(%r{^/spec/})
+    add_filter(%r{^/app/models/})
+    minimum_coverage(70)
+    maximum_coverage_drop(2)
+  end
 end
 
 ENV['RAILS_ENV'] ||= 'test'
 
 require File.expand_path('../config/environment', __dir__)
+
+require Rails.root.join("spec/support/graphql.rb")
 
 # Prevent database truncation if the environment is production
 
