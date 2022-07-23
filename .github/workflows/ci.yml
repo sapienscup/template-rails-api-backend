@@ -25,7 +25,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Permissions
-        run: sudo chown -R $(whoami):$(whoami) /opt/app
+        run: sudo chown -R $(whoami):$(whoami) /
 
       - name: Build the stack
         run: docker-compose build
@@ -36,10 +36,13 @@ jobs:
           docker-compose run walrus rake db:schema:load RAILS_ENV=test
 
       - name: Rubocop Default
-        run: docker-compose run walrus rubocop --regenerate-todo --parallel
+        run: docker-compose run walrus rubocop --parallel
 
       - name: Rails Best Practices PR Rubies Only
         run: docker-compose run walrus rails_best_practices --format html --only
+
+      - name: Packwerk
+        run: docker-compose run walrus packwerk
 
       - name: Coverage PR Specs Only
         run: docker-compose run -e COVERAGE=true walrus rspec
