@@ -27,6 +27,8 @@ jobs:
       - name: Permissions
         run: |
           sudo mkdir -p /tmp/cache
+          mkdir -p ./log
+          touch ./log/test.log
           sudo chown -R $(whoami) /tmp/cache
           sudo chown -R $(whoami) ./
 
