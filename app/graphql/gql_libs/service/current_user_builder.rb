@@ -29,6 +29,8 @@ module GqlLibs
       private
 
       def user_try_sign_in?
+        return nil if extract_end_point.nil?
+
         extract_end_point.downcase == Mutations::AccountMutation::SignInAccount.name.split('::').last.downcase
       end
     end

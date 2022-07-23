@@ -10,7 +10,11 @@ listen ENV["LISTEN_ON"]
 
 # Use a shorter timeout instead of the 60s default. If you are handling large
 # uploads you may want to increase this.
-timeout 60
+if ENV.fetch("RAILS_ENV", "development") == "production"
+  timeout 60
+else
+  timeout 360000
+end
 
 # Combine Ruby 2.0.0dev or REE with "preload_app true" for memory savings:
 # http://rubyenterpriseedition.com/faq.html#adapt_apps_for_cow

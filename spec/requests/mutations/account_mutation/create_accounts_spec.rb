@@ -28,8 +28,9 @@ RSpec.describe "Mutations::AccountMutation::CreateAccounts", type: :request do
   describe ".resolve" do
     context 'valid params' do
       it "should create an account" do
-        post "/graphql", params: { query: query, variables: JSON.dump(variables) }, headers: headers
-        @body = JSON.parse(response.body).with_indifferent_access
+        post("/graphql", params: { query: query, variables: JSON.dump(variables) }, headers: headers)
+        @body = response.body
+        byebug
 
         expect(response).to have_http_status(200)
       end
