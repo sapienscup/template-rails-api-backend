@@ -39,14 +39,5 @@ jobs:
           docker-compose run walrus rake db:create RAILS_ENV=test
           docker-compose run walrus rake db:schema:load RAILS_ENV=test
 
-      - name: Rubocop Default
-        run: docker-compose run walrus rubocop --regenerate-todo --parallel
-
-      - name: Rails Best Practices PR Rubies Only
-        run: docker-compose run walrus rails_best_practices --format html --only
-
-      - name: Coverage PR Specs Only
+      - name: Coverage
         run: docker-compose run -e COVERAGE=true walrus rspec
-
-      - name: RSpec All
-        run: docker-compose run walrus rspec

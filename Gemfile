@@ -38,6 +38,7 @@ group :development do
   gem "listen", "~> 3.3"
   gem "rack-mini-profiler", "~> 2.0"
   gem "rubocop", "~> 1.12.0"
+  gem "rubocop-rails"
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem "spring", "~> 2.1.1"
   gem "brakeman", "~> 5.0.1"
