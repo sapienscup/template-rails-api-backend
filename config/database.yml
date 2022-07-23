@@ -1,0 +1,25 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  host: db
+  username: walrus
+  password: <%= ENV.fetch("POSTGRES_PASSWORD") { "walrus" } %>
+  pool: 5
+
+development:
+  <<: *default
+  database: walrus_development
+  timeout: 5000
+
+test:
+  <<: *default
+  database: walrus_test
+  timeout: 5000
+
+staging:
+  <<: *default
+  database: walrus_staging
+
+production:
+  <<: *default
+  database: walrus_production
