@@ -27,9 +27,9 @@ jobs:
       - name: Permissions
         run: |
           sudo mkdir -p /tmp/cache
-          sudo mkdir -p log
+          sudo mkdir -p ./log
           sudo chown -R $(whoami) /tmp/cache
-          sudo chown -R $(whoami) log
+          sudo chown -R $(whoami) ./log
 
       - name: Build the stack
         run: docker-compose build
