@@ -28,6 +28,7 @@ jobs:
         run: |
           sudo mkdir -p /tmp/cache
           sudo chown -R $(whoami) /tmp/cache
+          sudo chown -R $(whoami) ./
 
       - name: Build the stack
         run: docker-compose build
