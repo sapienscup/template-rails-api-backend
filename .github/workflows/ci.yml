@@ -23,9 +23,8 @@ jobs:
         run: |
           sudo mkdir -p /tmp/cache
           sudo chown -R $(whoami) /tmp/cache
-          sudo chown -R $(whoami) db
-          sudo chmod 777 log
-          sudo chmod 777 tmp
+          sudo chown -R $(whoami) .
+          sudo chmod 777 log tmp db
 
       - name: Prepare stuff
         run: docker-compose run walrus rake db:create db:migrate
