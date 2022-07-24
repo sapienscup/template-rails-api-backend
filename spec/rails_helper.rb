@@ -10,7 +10,7 @@ if ENV.fetch("COVERAGE", false) == "true"
     add_filter(%r{^/test/})
     add_filter(%r{^/spec/})
     add_filter(%r{^/app/models/})
-    minimum_coverage(70)
+    minimum_coverage(95)
     maximum_coverage_drop(2)
   end
 end
