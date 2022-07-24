@@ -14,6 +14,7 @@ jobs:
           sudo chown -R $(whoami) /tmp/cache
           sudo chmod 777 log
           sudo chmod 777 tmp
+          sudo chmod 777 db
 
       - name: Build the stack
         run: docker-compose build
