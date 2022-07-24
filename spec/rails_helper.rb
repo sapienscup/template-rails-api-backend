@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-if ENV.fetch("COVERAGE", false)
+if ENV.fetch("COVERAGE", false) == "true"
   require "simplecov"
   require "simplecov-rcov-text"
   SimpleCov.formatter = SimpleCov::Formatter::RcovTextFormatter
