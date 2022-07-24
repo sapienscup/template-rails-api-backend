@@ -24,7 +24,7 @@ jobs:
         run: |
           sudo mkdir -p /tmp/cache
           sudo chown -R $(whoami) /tmp/cache
-          sudo chmod 777 log tmp db/schema.rb
+          sudo chmod 777 log tmp coverage db/schema.rb
 
       - name: Prepare stuff
         run: docker-compose run walrus rake db:create db:migrate
