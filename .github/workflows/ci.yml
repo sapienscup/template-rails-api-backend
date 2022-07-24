@@ -16,9 +16,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-
-      - run: docker-compose pull
-
       - uses: satackey/action-docker-layer-caching@v0.0.11
         continue-on-error: true
 
@@ -31,21 +28,20 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Permissions
+      - name: Folders and Permissions
         run: |
           sudo mkdir -p /tmp/cache
           sudo mkdir -p coverage
           sudo chown -R $(whoami) /tmp/cache
           sudo chmod 777 log tmp coverage db/schema.rb
 
-      - name: Prepare stuff
+      - name: Create and migrate
         run: docker-compose run walrus rake db:create db:migrate
 
-      - name: Coverage
+      - name: Rspecs and Coverage
         run: docker-compose run -e COVERAGE=true walrus rspec
 
       - uses: kzkn/simplecov-resultset-diff-action@v1
         with:
-          base-resultset-path: coverage/.resultset.json
-          head-resultset-path: coverage/.resultset.json
+          base-resultset-path: 'coverage/.resultset.json'
           token: ${{ secrets.CI_WFLOW_TOKEN }}
