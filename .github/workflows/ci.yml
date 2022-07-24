@@ -43,14 +43,14 @@ jobs:
 
       - name: Coverage
         run: docker-compose run -e COVERAGE=true walrus rspec
-    coverage:
-      needs: specs
-      runs-on: ubuntu-latest
-      steps:
-        - uses: actions/checkout@v2
+  coverage:
+    needs: specs
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
 
-        - uses: kzkn/simplecov-resultset-diff-action@v1
-          with:
-            base-resultset-path: 'coverage/.resultset.json'
-            head-resultset-path: 'coverage/.resultset.json'
-            token: ${{ secrets.CI_WFLOW_TOKEN }}
+      - uses: kzkn/simplecov-resultset-diff-action@v1
+        with:
+          base-resultset-path: coverage/.resultset.json
+          head-resultset-path: coverage/.resultset.json
+          token: ${{ secrets.CI_WFLOW_TOKEN }}
