@@ -46,6 +46,8 @@ module GqlLibs
 
         one, two, three, end_point = grouped_query.captures
 
+        return nil unless end_point.is_a?(String) && end_point.empty?
+
         end_point
       end
 

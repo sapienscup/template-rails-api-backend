@@ -32,6 +32,7 @@ module GqlLibs
         return nil if extract_end_point.nil?
 
         extract_end_point.downcase == Mutations::AccountMutation::SignInAccount.name.split('::').last.downcase
+        && extract_end_point.downcase == Mutations::AccountMutation::SignInAccount.name.split('::').last.downcase
       end
     end
   end
