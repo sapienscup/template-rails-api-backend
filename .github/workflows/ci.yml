@@ -3,6 +3,17 @@ name: CI
 on: [pull_request]
 
 jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - run: docker-compose pull
+
+      - uses: satackey/action-docker-layer-caching@v0.0.11
+        continue-on-error: true
+
+      - run: docker-compose build
   tests:
     runs-on: ubuntu-latest
     steps:
@@ -15,9 +26,6 @@ jobs:
           sudo chown -R $(whoami) db
           sudo chmod 777 log
           sudo chmod 777 tmp
-
-      - name: Build the stack
-        run: docker-compose build
 
       - name: Prepare stuff
         run: docker-compose run walrus rake db:create db:migrate
