@@ -22,7 +22,7 @@ jobs:
       - uses: satackey/action-docker-layer-caching@v0.0.11
         continue-on-error: true
 
-      - run: make api_template_docker
+      - run: make build_api_template
 
       - run: docker-compose build --parallel
   specs:
