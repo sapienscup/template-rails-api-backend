@@ -33,6 +33,7 @@ jobs:
           sudo mkdir -p /tmp/cache
           sudo mkdir -p coverage
           sudo chown -R $(whoami) /tmp/cache
+          sudo chmod 777 log tmp coverage db/schema.rb
 
       - name: Create and migrate
         run: docker-compose run walrus rake db:create db:migrate
@@ -40,7 +41,7 @@ jobs:
       - name: Rspecs and Coverage
         run: |
           docker-compose run -e COVERAGE=true walrus rspec
-          sudo chmod 777 log tmp coverage db/schema.rb coverage/.resultset.json
+          sudo chmod 777 coverage/.resultset.json
 
       - uses: kzkn/simplecov-resultset-diff-action@v1
         with:
