@@ -42,10 +42,7 @@ jobs:
         run: |
           docker-compose run walrus rspec
           sudo chmod 777 coverage/.resultset.json
-          cp coverage/.resultset.json .resultset.json
 
-      - name: Add code coverage comment
-        uses: romeovs/lcov-reporter-action@v0.2.16
+      - uses: joshmfrankel/simplecov-check-action@main
         with:
-          lcov-file: ./coverage/lcov/ruby-simplecov.lcov
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.CI_WFLOW_TOKEN }}

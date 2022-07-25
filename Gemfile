@@ -49,7 +49,7 @@ group :test do
   gem "rspec", ">= 3.10.0"
   gem "rspec-rails", ">= 3.9.0"
   gem "simplecov", "~> 0.21.2"
-  gem "simplecov-lcov", "~> 0.8.0"
+  gem "simplecov-rcov", "~> 0.3.1"
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
