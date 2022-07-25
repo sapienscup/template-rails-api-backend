@@ -1,23 +1,16 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 
-require 'spec_helper'
+require "spec_helper"
+require "simplecov"
+require "simplecov-lcov"
 
-if ENV.fetch("COVERAGE", false) == "true"
-  require "simplecov"
-  require "simplecov-rcov-text"
-  SimpleCov.formatter = SimpleCov::Formatter::RcovTextFormatter
-  SimpleCov.start do
-    add_filter(%r{^/test/})
-    add_filter(%r{^/spec/})
-    add_filter(%r{^/app/models/})
-    minimum_coverage(95)
-    maximum_coverage_drop(2)
-  end
-end
+SimpleCov::Formatter::LcovFormatter.config.report_with_single_file = true
+SimpleCov.formatter = SimpleCov::Formatter::LcovFormatter
+SimpleCov.start
 
-ENV['RAILS_ENV'] ||= 'test'
+ENV["RAILS_ENV"] ||= "test"
 
-require File.expand_path('../config/environment', __dir__)
+require File.expand_path("../config/environment", __dir__)
 
 require Rails.root.join("spec/support/graphql.rb")
 
@@ -25,7 +18,7 @@ require Rails.root.join("spec/support/graphql.rb")
 
 abort("The Rails environment is running in production mode!") if Rails.env.production?
 
-require 'rspec/rails'
+require "rspec/rails"
 
 # Add additional requires below this line. Rails is not loaded until this point!
 
