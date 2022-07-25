@@ -43,8 +43,3 @@ jobs:
           docker-compose run -e COVERAGE=true walrus rspec
           sudo chmod 777 coverage/.resultset.json
           cp coverage/.resultset.json .resultset.json
-
-      - uses: kzkn/simplecov-resultset-diff-action@v1
-        with:
-          base-resultset-path: .resultset.json
-          token: ${{ secrets.CI_WFLOW_TOKEN }}
