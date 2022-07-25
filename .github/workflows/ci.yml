@@ -42,21 +42,9 @@ jobs:
         run: |
           docker-compose run -e COVERAGE=true walrus rspec
           sudo chmod 777 coverage/.resultset.json
-          cat coverage/.resultset.json
-
-      - name: Upload coverage report
-        if: always()
-        uses: actions/upload-artifact@v2
-        with:
-          name: head-result
-          path: coverage/.resultset.json
-
-      - name: Download head artifact
-        uses: actions/download-artifact@v1
-        with:
-          name: head-result
+          cp coverage/.resultset.json .resultset.json
 
       - uses: kzkn/simplecov-resultset-diff-action@v1
         with:
-          base-resultset-path: ./head-result/.resultset.json
+          base-resultset-path: .resultset.json
           token: ${{ secrets.CI_WFLOW_TOKEN }}
