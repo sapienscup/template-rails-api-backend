@@ -38,7 +38,15 @@ module GqlLibs
       end
 
       def extract_end_point
-        one, two, three, end_point = query.match(/\)(\s||\d||\w)*\{(\n+)?(\s+)(\w+)\(/im).captures
+        return nil if query.blank?
+
+        grouped_query = query.match(/\)(\s||\d||\w)*\{(\n+)?(\s+)(\w+)\(/im)
+
+        return nil if grouped_query.blank?
+
+        one, two, three, end_point = grouped_query.captures
+
+        return nil unless end_point.is_a?(String) && !end_point.empty?
 
         end_point
       end
@@ -51,8 +59,8 @@ module GqlLibs
         GqlLibs::Service::CurrentUserBuilder.new(params, request, session, extract_end_point).perform
       end
 
-      def handle_error_in_development(e)
-        GqlLibs::Service::HandleError.call(e)
+      def handle_error_in_development(flaw)
+        GqlLibs::Service::HandleError.call(flaw)
       end
     end
   end

@@ -1,8 +1,8 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe "Mutations::AccountMutation::CreateAccounts", type: :request do
   let(:query) {
-    <<~GQL
+    <<-GRAPHQL
     mutation CreateAccount($name: String!, $authProvider: AuthProviderSignupData!) {
       createAccount(name: $name, authProvider: $authProvider) {
         id
@@ -10,29 +10,36 @@ RSpec.describe "Mutations::AccountMutation::CreateAccounts", type: :request do
         name
       }
     }
-    GQL
+    GRAPHQL
+  }
+
+  let(:operation_name) {
+    "CreateAccount"
   }
 
   let(:variables) {
     {
       "name": "ab",
       "authProvider": {
-          "credentials": {
-              "email": "ab@c.d.f",
-              "password": "hui"
-          }
+        "credentials": {
+          "email": "a@b.c.d",
+          "password": "hui"
+        }
       }
     }
   }
 
   describe ".resolve" do
-    context 'valid params' do
-      it "should create an account" do
-        post '/graphql', params: { query: query, variables: variables }
-        json = JSON.parse(response.body)
-        data = json['data']['createAccount']
+    context "valid params" do
+      let(:email) { "a@b.c.d" }
+      let(:name) { "ab" }
 
-        expect(response).to have_http_status(200)
+      it "should create an account" do
+        response = WalrusSchema.execute(query, variables: variables, context: {}, operation_name: operation_name)
+        data = response.to_h.deep_symbolize_keys
+
+        expect(data[:data][:createAccount][:email]).to eq(email)
+        expect(data[:data][:createAccount][:name]).to eq(name)
       end
     end
   end

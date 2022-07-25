@@ -11,7 +11,8 @@ module GqlLibs
       end
 
       def perform
-        return if user_try_sign_in?
+        return true if user_try_sign_in?
+        return true if user_try_create_account?
 
         authentication_token = request.headers["Authorization"]
 
@@ -29,7 +30,23 @@ module GqlLibs
       private
 
       def user_try_sign_in?
-        extract_end_point.downcase == Mutations::AccountMutation::SignInAccount.name.split('::').last.downcase
+        return nil if extract_end_point.nil?
+
+        sign_in_account_name = Mutations::AccountMutation::SignInAccount.name.split("::").last.downcase
+        extract_end_point_downcase = extract_end_point.downcase
+
+        extract_end_point_downcase == sign_in_account_name && \
+        extract_end_point_downcase == sign_in_account_name
+      end
+
+      def user_try_create_account?
+        return nil if extract_end_point.nil?
+
+        sign_in_account_name = Mutations::AccountMutation::CreateAccount.name.split("::").last.downcase
+        extract_end_point_downcase = extract_end_point.downcase
+
+        extract_end_point_downcase == sign_in_account_name && \
+        extract_end_point_downcase == sign_in_account_name
       end
     end
   end

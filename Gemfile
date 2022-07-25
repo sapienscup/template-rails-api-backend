@@ -5,23 +5,24 @@ ruby "2.7.2"
 
 gem "bcrypt", "~> 3.1.1"
 gem "bootsnap", ">= 1.4.4", require: false
-gem "graphql", "~> 1.12.6"
 gem "image_processing", "~> 1.2"
 gem "jbuilder", "~> 2.7"
 gem "json_web_token", "~> 0.3.5"
-gem "pg", "~> 1.2.2"
-gem "puma", "~> 5.0"
-gem "rails", "~> 6.1.2", ">= 6.1.2.1"
-gem "redis", "~> 4.0"
-gem "redis-rails", "~> 5.0.2"
-gem "sidekiq", "~> 6.1.3"
 gem "unicorn", "~> 5.5.5"
 gem "acts_as_paranoid", "~> 0.7.0"
 gem "hirb", "~> 0.7.3"
 gem "awesome_print", "~> 1.8.0"
-gem "rails-i18n", "~> 6.0.0"
 gem "pry", "~> 0.13.1"
 gem "rack-cors", "~> 1.1.1"
+
+gem "puma"
+gem "pg"
+gem "rails"
+gem "redis"
+gem "redis-rails"
+gem "sidekiq"
+gem "graphql"
+gem "rails-i18n"
 
 gem "devise", "~> 4.8.0"
 gem "simple_token_authentication", "~> 1.0"
@@ -37,6 +38,7 @@ group :development do
   gem "listen", "~> 3.3"
   gem "rack-mini-profiler", "~> 2.0"
   gem "rubocop", "~> 1.12.0"
+  gem "rubocop-rails"
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem "spring", "~> 2.1.1"
   gem "brakeman", "~> 5.0.1"
@@ -47,7 +49,7 @@ group :test do
   gem "rspec", ">= 3.10.0"
   gem "rspec-rails", ">= 3.9.0"
   gem "simplecov", "~> 0.21.2"
-  gem "simplecov-console", "~> 0.9.1"
+  gem "simplecov-rcov", "~> 0.3.1"
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
