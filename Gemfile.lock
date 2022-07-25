@@ -251,7 +251,7 @@ GEM
       simplecov-html (~> 0.11)
       simplecov_json_formatter (~> 0.1)
     simplecov-html (0.12.3)
-    simplecov-rcov-text (0.0.3)
+    simplecov-lcov (0.8.0)
     simplecov_json_formatter (0.1.4)
     spring (2.1.1)
     sprockets (4.1.1)
@@ -313,8 +313,8 @@ DEPENDENCIES
   rubocop-rails
   sidekiq
   simple_token_authentication (~> 1.0)
-  simplecov (~> 0.21.2)
-  simplecov-rcov-text (~> 0.0.3)
+  simplecov
+  simplecov-lcov
   spring (~> 2.1.1)
   tzinfo-data
   unicorn (~> 5.5.5)
