@@ -48,8 +48,8 @@ group :test do
   gem "factory_bot_rails", "~> 6.1.0"
   gem "rspec", ">= 3.10.0"
   gem "rspec-rails", ">= 3.9.0"
-  gem "simplecov"
-  gem "simplecov-lcov"
+  gem "simplecov", "~> 0.21.2"
+  gem "simplecov-lcov", "~> 0.8.0"
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
